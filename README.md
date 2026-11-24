@@ -193,7 +193,6 @@ A interface fica em `src/main/resources/static/` e é servida pelo próprio Spri
 
 <img width="1602" height="934" alt="image" src="https://github.com/user-attachments/assets/40ce036c-f64f-48e7-8ad5-0cd82854ab35" />
 
-## Postman
 
 ## Funcionamento
 
