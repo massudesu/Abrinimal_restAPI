@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("api/adotantes")
 public class AdotantesController {
     private final AdotantesRepository repository;
-    //Nicolas Massuda<@massudesu>
+
     public AdotantesController(AdotantesRepository repository){
         this.repository = repository;
     }
@@ -45,7 +45,7 @@ public class AdotantesController {
         try {
             repository.save(adotante);
             return "Atualizado com sucesso";
-        }//Nicolas Massuda<@massudesu>
+        }
         catch (Exception e){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados incorretos", e);
         }
@@ -65,5 +65,5 @@ public class AdotantesController {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Não é possível excluir este registro porque ele está vinculado a outros registros. Remova primeiro os vínculos relacionados.", e);
         }
-    }//@massudesu
+    }
 }

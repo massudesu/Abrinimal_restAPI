@@ -4,6 +4,7 @@ const API = '/api';
 
 const PORTES = { PEQUENO: 'Pequeno', MEDIO: 'Médio', GRANDE: 'Grande' };
 const MORADIAS = { CASA: 'Casa', APARTAMENTO: 'Apartamento' };
+const STATUS = { 'Disponível': 'Disponível', 'Adotado': 'Adotado', 'Indisponível': 'Indisponível' };
 
 const texto = (v) => (v === null || v === undefined || v === '' ? '—' : String(v));
 const data = (v) => {
@@ -11,7 +12,10 @@ const data = (v) => {
     const [a, m, d] = v.split('-');
     return `${d}/${m}/${a}`;
 };
-<!--Nicolas Massuda<@massudesu>-->
+
+/* ------------------------------------------------------------------
+   Configuração de cada recurso: campos do formulário e colunas da tabela
+------------------------------------------------------------------- */
 const RESOURCES = {
     adocoes: {
         titulo: 'Adoções',
@@ -21,7 +25,7 @@ const RESOURCES = {
         rotulo: (a) => `Adoção #${a.id}`,
         campos: [
             { name: 'dataAdocao', label: 'Data da adoção', type: 'date', required: true },
-            { name: 'animal', label: 'Animal', type: 'relation', resource: 'animais', required: true },
+            { name: 'animal', label: 'Animal', type: 'relation', resource: 'animais', required: true, apenasDisponiveis: true },
             { name: 'adotante', label: 'Adotante', type: 'relation', resource: 'adotantes', required: true },
             { name: 'voluntario', label: 'Voluntário responsável', type: 'relation', resource: 'voluntarios', required: true },
             { name: 'termoAssinado', label: 'Termo de adoção assinado', type: 'checkbox' },
@@ -48,7 +52,7 @@ const RESOURCES = {
             { name: 'especie', label: 'Espécie', type: 'text', required: true, sugestoes: ['Cachorro', 'Gato'] },
             { name: 'porte', label: 'Porte', type: 'select', options: PORTES, required: true },
             { name: 'idadeEstimada', label: 'Idade estimada (anos)', type: 'number', min: 0 },
-            { name: 'statusAdocao', label: 'Status de adoção', type: 'text', sugestoes: ['Disponível', 'Adotado', 'Em tratamento'] },
+            { name: 'statusAdocao', label: 'Status de adoção', type: 'select', options: STATUS, padrao: 'Disponível', required: true },
             { name: 'dataResgate', label: 'Data do resgate', type: 'date' }
         ],
         colunas: [
@@ -82,7 +86,7 @@ const RESOURCES = {
             { rotulo: 'Moradia', valor: (r) => MORADIAS[r.tipoMoradia] || texto(r.tipoMoradia) }
         ]
     },
-    <!--Nicolas Massuda<@massudesu>-->
+
     voluntarios: {
         titulo: 'Voluntários',
         singular: 'Voluntário', genero: 'm',
@@ -128,10 +132,13 @@ function tomStatus(s) {
     const v = (s || '').toLowerCase();
     if (v.startsWith('dispon')) return 'ok';
     if (v.startsWith('adotad')) return 'info';
-    if (v.includes('trat')) return 'warn';
+    if (v.startsWith('indispon') || v.includes('trat')) return 'warn';
     return 'muted';
 }
 
+/* ------------------------------------------------------------------
+   Estado e referências do DOM
+------------------------------------------------------------------- */
 const $ = (id) => document.getElementById(id);
 
 const estado = {
@@ -183,6 +190,9 @@ async function api(caminho, opcoes = {}) {
     return tipo.includes('json') && corpo ? JSON.parse(corpo) : corpo;
 }
 
+/* ------------------------------------------------------------------
+   Feedback (toasts)
+------------------------------------------------------------------- */
 function toast(mensagem, erro = false) {
     const t = document.createElement('div');
     t.className = `toast${erro ? ' erro' : ''}`;
@@ -190,7 +200,10 @@ function toast(mensagem, erro = false) {
     el.toasts.append(t);
     setTimeout(() => t.remove(), erro ? 6000 : 3200);
 }
-<!--Nicolas Massuda<@massudesu>-->
+
+/* ------------------------------------------------------------------
+   Navegação
+------------------------------------------------------------------- */
 function montarNav() {
     el.nav.replaceChildren();
     for (const [chave, r] of Object.entries(RESOURCES)) {
@@ -228,7 +241,10 @@ function trocar(chave) {
     marcarNav();
     carregar();
 }
-<!--Nicolas Massuda<@massudesu>-->
+
+/* ------------------------------------------------------------------
+   Listagem (GET)
+------------------------------------------------------------------- */
 function mostrarEstado(titulo, detalhe, comRetry = false) {
     el.estado.hidden = false;
     el.estado.replaceChildren();
@@ -266,7 +282,7 @@ async function carregarContagens() {
     await Promise.all(Object.entries(RESOURCES).map(async ([chave, r]) => {
         try {
             estado.contagens[chave] = (await api(r.endpoint)).length;
-        } catch { }
+        } catch { /* a contagem fica como "–" */ }
     }));
     marcarNav();
 }
@@ -288,7 +304,7 @@ function renderizar() {
     thAc.textContent = 'Ações';
     cab.append(thAc);
     el.thead.replaceChildren(cab);
-    <!--Nicolas Massuda<@massudesu>-->
+
     const q = el.busca.value.trim().toLowerCase();
     const visiveis = estado.linhas.filter((l) => !q || r.colunas.some((c) => c.valor(l).toLowerCase().includes(q)));
 
@@ -345,7 +361,9 @@ function renderizar() {
     }
 }
 
-
+/* ------------------------------------------------------------------
+   Formulário (POST / PUT)
+------------------------------------------------------------------- */
 function criarCampo(c, relacoes, linha) {
     const wrap = document.createElement('div');
     wrap.className = `campo${c.full ? ' cheio' : ''}${c.type === 'checkbox' ? ' check cheio' : ''}`;
@@ -373,12 +391,23 @@ function criarCampo(c, relacoes, linha) {
 
         if (c.type === 'select') {
             for (const [v, rot] of Object.entries(c.options)) input.append(new Option(rot, v));
-            if (valor) input.value = valor;
+            // mantém valores antigos que não estão na lista (ex.: dados cadastrados antes)
+            if (valor && !(valor in c.options)) input.append(new Option(valor, valor));
+            const inicial = linha ? valor : c.padrao;
+            if (inicial) input.value = inicial;
         } else {
-            const itens = relacoes[c.resource] || [];
+            let itens = relacoes[c.resource] || [];
+            if (c.apenasDisponiveis) {
+                // só animais ainda não adotados e não indisponíveis (mais o animal atual, ao editar)
+                itens = itens.filter((i) => {
+                    const st = (i.statusAdocao || '').toLowerCase();
+                    const livre = !st.startsWith('adotad') && !st.startsWith('indispon');
+                    return livre || (valor && valor.id === i.id);
+                });
+            }
             const rotulo = RESOURCES[c.resource].rotulo;
             for (const item of itens) input.append(new Option(rotulo(item), item.id));
-            if (itens.length === 0) vazio.textContent = `Nenhum registro em ${RESOURCES[c.resource].titulo.toLowerCase()}`;
+            if (itens.length === 0) vazio.textContent = c.apenasDisponiveis ? 'Nenhum animal disponível' : `Nenhum registro em ${RESOURCES[c.resource].titulo.toLowerCase()}`;
             if (valor && valor.id != null) input.value = String(valor.id);
         }
     } else if (c.type === 'textarea') {
@@ -486,7 +515,9 @@ async function salvar(evento) {
     }
 }
 
-
+/* ------------------------------------------------------------------
+   Exclusão (DELETE)
+------------------------------------------------------------------- */
 function pedirExclusao(linha) {
     const r = recurso();
     estado.excluindo = linha;
@@ -505,9 +536,12 @@ async function confirmarExclusao() {
         await carregar();
     } catch (e) {
         toast(e.message, true);
-    }<!--Nicolas Massuda<@massudesu>-->
+    }
 }
 
+/* ------------------------------------------------------------------
+   Eventos e inicialização
+------------------------------------------------------------------- */
 el.btnNovo.addEventListener('click', () => abrirFormulario());
 el.busca.addEventListener('input', renderizar);
 el.form.addEventListener('submit', salvar);
@@ -518,7 +552,7 @@ $('confirmar-sim').addEventListener('click', confirmarExclusao);
 
 const inicial = location.hash.slice(1);
 if (RESOURCES[inicial]) estado.atual = inicial;
-<!--Nicolas Massuda<@massudesu>-->
+
 montarNav();
 trocar(estado.atual);
 carregarContagens();

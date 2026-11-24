@@ -6,7 +6,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "vacinas_aplicadas")
 public class VacinaAplicada {
-    //Nicolas Massuda<@massudesu>
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -50,7 +50,7 @@ public class VacinaAplicada {
     public LocalDate getDataAplicacao() {
         return dataAplicacao;
     }
-    //Nicolas Massuda<@massudesu>
+
     public void setDataAplicacao(LocalDate dataAplicacao) {
         this.dataAplicacao = dataAplicacao;
     }
@@ -68,6 +68,6 @@ public class VacinaAplicada {
     }
 
     public void setAnimal(Animais animal) {
-        this.animal = animal;//Nicolas Massuda<@massudesu>
+        this.animal = animal;
     }
 }

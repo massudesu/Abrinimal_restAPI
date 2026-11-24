@@ -1,4 +1,3 @@
-//Nicolas Massuda<@massudesu>
 package org.dt2.abrinimal.repositories;
 
 import org.dt2.abrinimal.entities.Adotantes;

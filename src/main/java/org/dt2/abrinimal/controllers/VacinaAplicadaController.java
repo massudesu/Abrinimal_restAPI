@@ -1,6 +1,6 @@
 package org.dt2.abrinimal.controllers;
 
-import org.dt2.abrinimal.entities.VacinaAplicada;//Nicolas Massuda<@massudesu>
+import org.dt2.abrinimal.entities.VacinaAplicada;
 import org.dt2.abrinimal.repositories.VacinaAplicadaRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +17,11 @@ public class VacinaAplicadaController {
         this.repository = repository;
     }
 
-    @GetMapping//Nicolas Massuda<@massudesu>
+    @GetMapping
     public List<VacinaAplicada> mostrar(){
         return repository.findAll();
     }
-    //Nicolas Massuda<@massudesu>
+
     @PostMapping
     public String criar(@RequestBody VacinaAplicada vacina){
         try {
@@ -50,7 +50,7 @@ public class VacinaAplicadaController {
         }
     }
 
-    @DeleteMapping("/{id}")//Nicolas Massuda<@massudesu>
+    @DeleteMapping("/{id}")
     public void deletar(@PathVariable Long id) {
         try {
             if (!repository.existsById(id)) {
@@ -60,7 +60,7 @@ public class VacinaAplicadaController {
             repository.flush();
         } catch (ResponseStatusException e) {
             throw e;
-        } catch (Exception e) {//Nicolas Massuda<@massudesu>                                                                                                                                                                                                                                                        //Nicolas Massuda<@massudesu>
+        } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Não é possível excluir este registro porque ele está vinculado a outros registros. Remova primeiro os vínculos relacionados.", e);
         }

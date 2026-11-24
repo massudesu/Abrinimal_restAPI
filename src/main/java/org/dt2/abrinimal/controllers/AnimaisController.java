@@ -15,7 +15,7 @@ public class AnimaisController {
 
     public AnimaisController(AnimaisRepository repository){
         this.repository = repository;
-    }//Nicolas Massuda<@massudesu>
+    }
 
     @GetMapping
     public List<Animais> mostrar(){
@@ -32,14 +32,14 @@ public class AnimaisController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Dados incorretos", e);
         }
     }
-    //Nicolas Massuda<@massudesu>
+
     @PutMapping("/{id}")
     public String atualizar(@PathVariable Long id, @RequestBody Animais dados){
         Animais animal = repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado."));
         animal.setNome(dados.getNome());
         animal.setEspecie(dados.getEspecie());
-        animal.setPorte(dados.getPorte());//Nicolas Massuda<@massudesu>
+        animal.setPorte(dados.getPorte());
         animal.setIdadeEstimada(dados.getIdadeEstimada());
         animal.setStatusAdocao(dados.getStatusAdocao());
         animal.setDataResgate(dados.getDataResgate());
@@ -58,12 +58,12 @@ public class AnimaisController {
             if (!repository.existsById(id)) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Registro não encontrado.");
             }
-            repository.deleteById(id);//Nicolas Massuda<@massudesu>
+            repository.deleteById(id);
             repository.flush();
         } catch (ResponseStatusException e) {
             throw e;
         } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT,//Nicolas Massuda<@massudesu>
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Não é possível excluir este registro porque ele está vinculado a outros registros. Remova primeiro os vínculos relacionados.", e);
         }
     }
