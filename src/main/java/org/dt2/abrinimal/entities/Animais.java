@@ -1,5 +1,5 @@
 package org.dt2.abrinimal.entities;
-
+//Nicolas Massuda<@massudesu>
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -19,15 +19,15 @@ public class Animais {
     private String especie;
     private PorteEnum porte;
     private Integer idadeEstimada;
-    private String statusAdocao;
+    private String  statusAdocao;
     private LocalDate dataResgate;
-
+//Nicolas Massuda<@massudesu>
 
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<VacinaAplicada> vacinas;
 
-    public Animais(Long id, String nome, String especie, PorteEnum porte, Integer idadeEstimada, String statusAdocao, LocalDate dataResgate, List<VacinaAplicada> vacinas) {
+    public Animais(Long id, String nome, String especie, PorteEnum porte, Integer idadeEstimada,String  statusAdocao, LocalDate dataResgate, List<VacinaAplicada> vacinas) {
         this.id = id;
         this.nome = nome;
         this.especie = especie;
@@ -38,7 +38,7 @@ public class Animais {
         this.vacinas = vacinas;
     }
 
-    public Animais(String nome, String especie, PorteEnum porte, Integer idadeEstimada, String statusAdocao, LocalDate dataResgate, List<VacinaAplicada> vacinas) {
+    public Animais(String nome, String especie, PorteEnum porte, Integer idadeEstimada, String  statusAdocao, LocalDate dataResgate, List<VacinaAplicada> vacinas) {
         this.nome = nome;
         this.especie = especie;
         this.porte = porte;
@@ -79,17 +79,17 @@ public class Animais {
 
     public Integer getIdadeEstimada() {
         return idadeEstimada;
-    }
+    }//Nicolas Massuda<@massudesu>
 
     public void setIdadeEstimada(Integer idadeEstimada) {
         this.idadeEstimada = idadeEstimada;
     }
 
-    public String getStatusAdocao() {
+    public String  getStatusAdocao() {
         return statusAdocao;
     }
 
-    public void setStatusAdocao(String statusAdocao) {
+    public void setStatusAdocao(String  statusAdocao) {
         this.statusAdocao = statusAdocao;
     }
 

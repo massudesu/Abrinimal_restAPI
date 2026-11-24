@@ -29,6 +29,7 @@ public class Adocoes {
     private Voluntarios voluntario;
 
     public Adocoes(Long id, LocalDate dataAdocao, Boolean termoAssinado, String observacoes, Animais animal, Adotantes adotante, Voluntarios voluntario) {
+        //Nicolas Massuda<@massudesu>
         this.id = id;
         this.dataAdocao = dataAdocao;
         this.termoAssinado = termoAssinado;
@@ -49,7 +50,7 @@ public class Adocoes {
     public Adocoes(){}
 
     public Long getId() {
-        return id;
+        return id;//Nicolas Massuda<@massudesu>
     }
 
     public LocalDate getDataAdocao() {
@@ -94,7 +95,7 @@ public class Adocoes {
 
     public Voluntarios getVoluntario() {
         return voluntario;
-    }
+    }//Nicolas Massuda<@massudesu>
 
     public void setVoluntario(Voluntarios voluntario) {
         this.voluntario = voluntario;

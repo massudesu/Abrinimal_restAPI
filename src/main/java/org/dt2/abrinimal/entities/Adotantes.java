@@ -1,6 +1,7 @@
 package org.dt2.abrinimal.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.dt2.abrinimal.enums.MoradiaEnum;
 
 import java.util.List;
 
@@ -13,15 +14,15 @@ public class Adotantes {
 
     private String nome;
     private String cpf;
-    private String telefone;
+    private String telefone;//Nicolas Massuda<@massudesu>
     private String endereco;
-    private String tipoMoradia;
+    private MoradiaEnum tipoMoradia;
 
     @OneToMany(mappedBy = "adotante")
     @JsonIgnore
     private List<Adocoes> adocoes;
 
-    public Adotantes(Long id, String nome, String cpf, String telefone, String endereco, String tipoMoradia, List<Adocoes> adocoes) {
+    public Adotantes(Long id, String nome, String cpf, String telefone, String endereco, MoradiaEnum tipoMoradia, List<Adocoes> adocoes) {
         this.id = id;
         this.nome = nome;
         this.cpf = cpf;
@@ -31,7 +32,7 @@ public class Adotantes {
         this.adocoes = adocoes;
     }
 
-    public Adotantes(String nome, String cpf, String telefone, String endereco, String tipoMoradia, List<Adocoes> adocoes) {
+    public Adotantes(String nome, String cpf, String telefone, String endereco, MoradiaEnum tipoMoradia, List<Adocoes> adocoes) {
         this.nome = nome;
         this.cpf = cpf;
         this.telefone = telefone;
@@ -63,7 +64,7 @@ public class Adotantes {
 
     public String getTelefone() {
         return telefone;
-    }
+    }//Nicolas Massuda<@massudesu>
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
@@ -77,18 +78,18 @@ public class Adotantes {
         this.endereco = endereco;
     }
 
-    public String getTipoMoradia() {
+    public MoradiaEnum getTipoMoradia() {
         return tipoMoradia;
     }
 
-    public void setTipoMoradia(String tipoMoradia) {
+    public void setTipoMoradia(MoradiaEnum tipoMoradia) {
         this.tipoMoradia = tipoMoradia;
     }
 
     public List<Adocoes> getAdocoes() {
         return adocoes;
     }
-
+    //Nicolas Massuda<@massudesu>
     public void setAdocoes(List<Adocoes> adocoes) {
         this.adocoes = adocoes;
     }

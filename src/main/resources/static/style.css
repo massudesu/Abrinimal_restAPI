@@ -1,0 +1,252 @@
+:root {
+    --bg: #faf6f5;
+    --surface: #ffffff;
+    --surface-2: #f6efee;
+    --text: #231c1d;
+    --muted: #7a6c6e;
+    --border: #eadfde;
+    --accent: #c8102e;
+    --accent-hover: #a50d26;
+    --accent-soft: #fbe9ec;
+    --ok: #1f7a4d;
+    --ok-soft: #e2f4ea;
+    --warn: #a15c00;
+    --warn-soft: #fdf0d9;
+    --info: #1f5fa8;
+    --info-soft: #e4eefb;
+    --shadow: 0 1px 2px rgba(35, 28, 29, .05), 0 6px 20px rgba(35, 28, 29, .06);
+    --radius: 12px;
+    color-scheme: light;
+}
+/*Nicolas Massuda<@massudesu>*/
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #151011;
+        --surface: #1e1718;
+        --surface-2: #281e20;
+        --text: #f4ecec;
+        --muted: #a69597;
+        --border: #382b2d;
+        --accent: #e5384f;
+        --accent-hover: #f0566a;
+        --accent-soft: #3a1a20;
+        --ok: #5dd39e;
+        --ok-soft: #12301f;
+        --warn: #f0b95a;
+        --warn-soft: #34270f;
+        --info: #7db3f0;
+        --info-soft: #13253b;
+        --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 24px rgba(0, 0, 0, .35);
+        color-scheme: dark;
+    }
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+}
+
+.app {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
+.sidebar {
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.brand { display: flex; align-items: center; gap: 12px; padding: 0 8px; }
+.brand strong { display: block; font-size: 1.1rem; letter-spacing: .01em; }
+.brand small { color: var(--muted); font-size: .8rem; }
+.brand-mark {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 800; font-size: 1.25rem;
+    border-radius: 12px;
+}
+
+#nav { display: flex; flex-direction: column; gap: 4px; }
+#nav button {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%;
+    padding: 10px 12px;
+    border: 0; border-radius: 10px;
+    background: transparent; color: var(--text);
+    font: inherit; font-weight: 500; text-align: left;
+    cursor: pointer;
+}
+#nav button:hover { background: var(--surface-2); }
+#nav button[aria-current="page"] { background: var(--accent-soft); color: var(--accent); font-weight: 650; }
+#nav .badge {
+    min-width: 26px; padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--surface-2); color: var(--muted);
+    font-size: .75rem; font-weight: 600; text-align: center;
+}
+#nav button[aria-current="page"] .badge { background: var(--accent); color: #fff; }
+
+.docs-link { margin-top: auto; padding: 0 8px; color: var(--muted); font-size: .85rem; text-decoration: none; }
+.docs-link:hover { color: var(--accent); }
+
+
+main { padding: 32px clamp(16px, 4vw, 48px); min-width: 0; }
+
+.topbar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.topbar h1 { margin: 0; font-size: 1.75rem; letter-spacing: -.01em; }
+.topbar p { margin: 4px 0 0; color: var(--muted); }
+
+.toolbar { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
+.toolbar input {
+    flex: 1; max-width: 360px;
+    padding: 10px 14px;
+    border: 1px solid var(--border); border-radius: 10px;
+    background: var(--surface); color: var(--text);
+    font: inherit;
+}
+#contagem { color: var(--muted); font-size: .9rem; }
+
+.btn {/*Nicolas Massuda<@massudesu>*/
+    padding: 10px 18px;
+    border: 1px solid transparent; border-radius: 10px;
+    font: inherit; font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.btn:disabled { opacity: .6; cursor: progress; }
+.btn.primary { background: var(--accent); color: #fff; }
+.btn.primary:hover:not(:disabled) { background: var(--accent-hover); }
+.btn.ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.btn.ghost:hover { background: var(--surface-2); }
+.btn.danger { background: #b4161b; color: #fff; }
+.btn.danger:hover { background: #8f1115; }
+
+.icon-btn {
+    width: 34px; height: 34px;
+    border: 0; border-radius: 8px;
+    background: transparent; color: var(--muted);
+    font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.icon-btn:hover { background: var(--surface-2); color: var(--text); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.table-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+th, td { padding: 12px 16px; text-align: left; vertical-align: middle; }
+thead th {
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: .75rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .06em;
+    white-space: nowrap;
+}
+tbody tr { border-top: 1px solid var(--border); }
+tbody tr:hover { background: var(--surface-2); }
+td.id { color: var(--muted); width: 56px; }
+td.acoes, th.acoes { text-align: right; white-space: nowrap; width: 1%; }
+td.longo { max-width: 280px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.link-btn {
+    padding: 6px 10px; margin-left: 4px;
+    border: 1px solid var(--border); border-radius: 8px;
+    background: transparent; color: var(--text);
+    font: inherit; font-size: .85rem; cursor: pointer;
+}
+.link-btn:hover { background: var(--surface-2); }
+.link-btn.excluir { color: var(--accent); }
+.link-btn.excluir:hover { background: var(--accent-soft); border-color: var(--accent); }
+
+.pill { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.info { background: var(--info-soft); color: var(--info); }
+.pill.muted { background: var(--surface-2); color: var(--muted); }
+
+.estado { padding: 48px 16px; text-align: center; color: var(--muted); }
+.estado strong { display: block; color: var(--text); margin-bottom: 4px; }
+.estado .btn { margin-top: 14px; }
+
+dialog {
+    width: min(640px, calc(100vw - 32px));
+    padding: 0;
+    border: 1px solid var(--border); border-radius: 16px;
+    background: var(--surface); color: var(--text);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+}
+dialog.pequeno { width: min(420px, calc(100vw - 32px)); }
+dialog::backdrop { background: rgba(20, 10, 12, .55); backdrop-filter: blur(2px); }
+
+.modal-head { display: flex; align-items: center; justify-content: space-between; padding: 18px 24px 0; }
+.modal-head h2 { margin: 0; font-size: 1.2rem; }
+.modal-foot { display: flex; justify-content: flex-end; gap: 10px; padding: 16px 24px 20px; }
+.confirmar-texto { margin: 12px 24px 0; color: var(--muted); }
+/*Nicolas Massuda<@massudesu>*/
+.campos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; padding: 18px 24px 4px; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo.cheio { grid-column: 1 / -1; }
+.campo label { font-size: .85rem; font-weight: 600; }
+.campo .obrigatorio { color: var(--accent); }
+.campo input:not([type="checkbox"]), .campo select, .campo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border); border-radius: 10px;
+    background: var(--bg); color: var(--text);
+    font: inherit;
+}
+.campo textarea { min-height: 96px; resize: vertical; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: transparent; }
+.campo input.invalido, .campo select.invalido { border-color: var(--accent); }
+.campo.check { flex-direction: row; align-items: center; gap: 10px; }
+.campo.check input { width: 18px; height: 18px; accent-color: var(--accent); }
+.erro-campo { color: var(--accent); font-size: .8rem; }
+
+.toasts { position: fixed; right: 20px; bottom: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 50; }
+.toast {
+    max-width: 340px; padding: 12px 16px;
+    border-radius: 10px; border-left: 4px solid var(--ok);
+    background: var(--surface); color: var(--text);
+    box-shadow: var(--shadow);
+    animation: entrar .2s ease-out;
+}
+.toast.erro { border-left-color: var(--accent); }
+@keyframes entrar { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+
+@media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 14px 16px; gap: 12px; border-right: 0; border-bottom: 1px solid var(--border); }
+    #nav { flex-direction: row; overflow-x: auto; width: 100%; order: 3; padding-bottom: 4px; }
+    #nav button { /*Nicolas Massuda<@massudesu>*/width: auto; gap: 8px; white-space: nowrap; }
+    .docs-link { display: none; }
+    main { padding: 20px 16px 40px; }
+    .topbar { flex-direction: column; }
+    .campos { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion:/*Nicolas Massuda<@massudesu>*/ reduce) {
+    .toast { animation: none; }
+}

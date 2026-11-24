@@ -15,7 +15,7 @@ public class Voluntarios {
     private String nome;
     private String email;
     private String telefone;
-    private String funcao;
+    private String funcao;//Nicolas Massuda<@massudesu>
 
     @OneToMany(mappedBy = "voluntario")
     @JsonIgnore
@@ -24,7 +24,7 @@ public class Voluntarios {
     public Voluntarios(Long id, String nome, String email, String telefone, String funcao, List<Adocoes> adocoesRegistradas) {
         this.id = id;
         this.nome = nome;
-        this.email = email;
+        this.email = email;//Nicolas Massuda<@massudesu>
         this.telefone = telefone;
         this.funcao = funcao;
         this.adocoesRegistradas = adocoesRegistradas;
@@ -42,7 +42,7 @@ public class Voluntarios {
     public Long getId() {
         return id;
     }
-
+    //Nicolas Massuda<@massudesu>
     public String getNome() {
         return nome;
     }
@@ -62,7 +62,7 @@ public class Voluntarios {
     public String getTelefone() {
         return telefone;
     }
-
+    //Nicolas Massuda<@massudesu>
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }

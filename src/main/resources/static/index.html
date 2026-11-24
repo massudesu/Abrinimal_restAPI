@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Abrinimal · Gestão de adoções</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<!--Nicolas Massuda<@massudesu>-->
+<body>
+<div class="app">
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-mark" aria-hidden="true">A</span>
+            <div>
+                <strong>Abrinimal</strong>
+                <small>Gestão de adoções</small>
+            </div>
+        </div>
+        <nav id="nav" aria-label="Seções"></nav>
+        <a class="docs-link" href="/swagger-ui.html" target="_blank" rel="noopener">Documentação da API ↗</a>
+    </aside>
+
+    <main>
+        <header class="topbar">
+            <div>
+                <h1 id="titulo"></h1>
+                <p id="descricao"></p>
+            </div>
+            <button id="btn-novo" class="btn primary" type="button"></button>
+        </header>
+
+        <div class="toolbar">
+            <input id="busca" type="search" placeholder="Buscar nesta lista…" aria-label="Buscar">
+            <span id="contagem" aria-live="polite"></span>
+        </div>
+
+        <section class="table-card">
+            <div class="table-scroll">
+                <table>
+                    <thead id="thead"></thead>
+                    <tbody id="tbody"></tbody>
+                </table>
+            </div>
+            <div id="estado" class="estado" hidden></div>
+        </section>
+    </main>
+</div>
+<!--Nicolas Massuda<@massudesu>-->
+<dialog id="modal">
+    <form id="form" novalidate>
+        <header class="modal-head">
+            <h2 id="modal-titulo"></h2>
+            <button type="button" class="icon-btn" id="modal-fechar" aria-label="Fechar">×</button>
+        </header>
+        <div id="campos" class="campos"></div>
+        <footer class="modal-foot">
+            <button type="button" class="btn ghost" id="modal-cancelar">Cancelar</button>
+            <button type="submit" class="btn primary" id="modal-salvar">Salvar</button>
+        </footer>
+    </form>
+</dialog>
+<!--Nicolas Massuda<@massudesu>-->
+<dialog id="confirmar" class="pequeno">
+    <div class="modal-head"><h2>Confirmar exclusão</h2></div>
+    <p id="confirmar-texto" class="confirmar-texto"></p>
+    <footer class="modal-foot">
+        <button type="button" class="btn ghost" id="confirmar-nao">Cancelar</button>
+        <button type="button" class="btn danger" id="confirmar-sim">Excluir</button>
+    </footer>
+</dialog>
+
+<div id="toasts" class="toasts" aria-live="polite"></div>
+<!--Nicolas Massuda<@massudesu>-->
+<script src="script.js"></script>
+</body>
+</html>
