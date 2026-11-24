@@ -1,4 +1,4 @@
-# Abrinimal
+# Abrinimal (Junção de Abrigo Animal)
 
 API REST para gestão de adoções de animais resgatados, com interface web. O sistema controla animais, adotantes, voluntários, adoções e o histórico de vacinas aplicadas.
 
@@ -188,6 +188,49 @@ Abrinimal_restAPI/
 A interface fica em `src/main/resources/static/` e é servida pelo próprio Spring Boot
 
 ## Documentação com swagger
+
+<img width="1600" height="782" alt="WhatsApp Image 2026-11-23 at 21 58 01" src="https://github.com/user-attachments/assets/a4c1c523-65b8-410d-8940-a44911155b5b" />
+
+<img width="1602" height="934" alt="image" src="https://github.com/user-attachments/assets/40ce036c-f64f-48e7-8ad5-0cd82854ab35" />
+
+## Postman
+
+## Funcionamento
+
+1. Adicionar Animal
+   
+   <img width="1864" height="531" alt="image" src="https://github.com/user-attachments/assets/58fc68b1-ee2d-4ef1-8ab6-fb7082f0e71e" />
+   <img width="1331" height="754" alt="image" src="https://github.com/user-attachments/assets/e927fcea-d14d-4226-b853-f4ab6a9ead02" />
+   <img width="706" height="574" alt="image" src="https://github.com/user-attachments/assets/2547f01c-1d43-472e-8071-a995c8019b03" />
+   <img width="1592" height="314" alt="image" src="https://github.com/user-attachments/assets/8da7d236-02ba-4fb8-a8fd-4b712a8fd387" />
+   
+2. Adicionar Vacina ao animal
+   
+  <img width="1583" height="590" alt="image" src="https://github.com/user-attachments/assets/24fbd53d-8dce-4b8a-bba2-337386329796" />
+  <img width="706" height="511" alt="image" src="https://github.com/user-attachments/assets/d18d2df2-a00f-4aec-9900-f84d3ce4c589" />
+  
+  - Como temos a "Lilica" adicionada, então ele ja aparece para selecionar
+  
+    <img width="677" height="421" alt="image" src="https://github.com/user-attachments/assets/b107d490-604f-4149-a697-b25ba3405018" />
+    <img width="741" height="540" alt="image" src="https://github.com/user-attachments/assets/f88206ca-334b-4824-a182-27578963343c" />
+    <img width="1611" height="904" alt="image" src="https://github.com/user-attachments/assets/f79eaa99-5407-4718-9d9a-cd15244c8795" />
+    
+3. Registrar adoção
+
+  <img width="669" height="532" alt="image" src="https://github.com/user-attachments/assets/3af11254-208b-4ece-8126-a5742ab35e15" />
+  <img width="681" height="548" alt="image" src="https://github.com/user-attachments/assets/5937c4af-d14c-4626-9bb3-f352f143481d" />
+  <img width="1564" height="156" alt="image" src="https://github.com/user-attachments/assets/0a7c949d-1dd8-41f8-aac7-82b51665a37d" />
+
+  - Após registrar a adoção, o animal muda o status para "adotado"
+  <img width="1549" height="128" alt="image" src="https://github.com/user-attachments/assets/0392ae21-d705-4bff-81d2-00c60b265071" />
+
+
+
+
+
+
+
+
 
 
 ## Author
