@@ -1,6 +1,12 @@
 package org.dt2.abrinimal.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import org.hibernate.Length;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.List;
 
@@ -10,9 +16,11 @@ public class Adotantes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @NotBlank
     private String nome;
+    @CPF@UniqueElements
     private String cpf;
+    @Size(min = 11, max = 11)
     private String telefone;
     private String endereco;
     private String tipoMoradia;

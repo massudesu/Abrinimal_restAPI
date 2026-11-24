@@ -1,5 +1,6 @@
 package org.dt2.abrinimal.entities;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
@@ -11,6 +12,7 @@ public class VacinaAplicada {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nomeVacina;
     private LocalDate dataAplicacao;
     private LocalDate proximaDose;

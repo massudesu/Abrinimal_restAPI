@@ -3,6 +3,8 @@ package org.dt2.abrinimal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import org.dt2.abrinimal.enums.PorteEnum;
 
 import java.time.LocalDate;
@@ -15,7 +17,9 @@ public class Animais {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nome;
+    @NotBlank
     private String especie;
     private PorteEnum porte;
     private Integer idadeEstimada;

@@ -2,6 +2,9 @@ package org.dt2.abrinimal.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 import java.util.List;
 
@@ -12,8 +15,11 @@ public class Voluntarios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nome;
+    @Email
     private String email;
+    @Size(min = 11, max = 11)
     private String telefone;
     private String funcao;
 
